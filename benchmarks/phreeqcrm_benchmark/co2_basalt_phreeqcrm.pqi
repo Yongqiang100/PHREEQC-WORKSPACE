@@ -1,0 +1,93 @@
+# Reaction definitions for the PhreeqcRM chemistry benchmark (Phase 2 Task 4). Database: phreeqc.dat.
+# NOT FOR SCIENTIFIC USE: approximate mineral data and rates, as in co2_basalt_profiling.pqi.
+# Each cell is a mixture of SOLUTION 1 and SOLUTION 2 with EQUILIBRIUM_PHASES 1 and KINETICS 1.
+# Warnings are switched off so that the benchmark measures chemistry, not stderr output.
+PRINT
+    -warnings 0
+PHASES
+Forsterite
+    Mg2SiO4 + 4 H+ = 2 Mg+2 + H4SiO4
+    -log_k     27.86
+    -delta_h  -48.6 kcal
+Diopside
+    CaMgSi2O6 + 4 H+ + 2 H2O = Ca+2 + Mg+2 + 2 H4SiO4
+    -log_k     20.96
+    -delta_h  -32.3 kcal
+Magnesite
+    MgCO3 = Mg+2 + CO3-2
+    -log_k    -8.03
+    -delta_h  -6.2 kcal
+RATES
+Forsterite
+-start
+ 10 si_m = SI("Forsterite")
+ 20 IF (M <= 0) OR (si_m >= 0) THEN GOTO 200
+ 30 arr = EXP(-79000 / 8.314 * (1 / TK - 1 / 298.15))
+ 40 k = (10^-6.85 * ACT("H+")^0.47 + 10^-10.64) * arr
+ 50 area = PARM(1) * (M / M0)^0.67
+ 60 moles = area * k * (1 - 10^si_m) * TIME
+200 SAVE moles
+-end
+Diopside
+-start
+ 10 si_m = SI("Diopside")
+ 20 IF (M <= 0) OR (si_m >= 0) THEN GOTO 200
+ 30 arr = EXP(-96100 / 8.314 * (1 / TK - 1 / 298.15))
+ 40 k = (10^-6.36 * ACT("H+")^0.71 + 10^-11.11 * EXP(-40600 / 8.314 * (1 / TK - 1 / 298.15)) / arr) * arr
+ 50 area = PARM(1) * (M / M0)^0.67
+ 60 moles = area * k * (1 - 10^si_m) * TIME
+200 SAVE moles
+-end
+Anorthite
+-start
+ 10 si_m = SI("Anorthite")
+ 20 IF (M <= 0) OR (si_m >= 0) THEN GOTO 200
+ 30 arr = EXP(-16600 / 8.314 * (1 / TK - 1 / 298.15))
+ 40 k = (10^-3.50 * ACT("H+")^1.411 + 10^-9.12) * arr
+ 50 area = PARM(1) * (M / M0)^0.67
+ 60 moles = area * k * (1 - 10^si_m) * TIME
+200 SAVE moles
+-end
+SOLUTION 1  Basalt pore water
+    units      mmol/kgw
+    temp       50
+    pressure   100
+    pH         8.5
+    Na         100
+    Cl         100   charge
+    Ca         1.0
+    Mg         0.5
+    Si         0.5
+    Al         0.01
+    C(4)       2.0
+SOLUTION 2  CO2-charged brine
+    units      mmol/kgw
+    temp       50
+    pressure   100
+    pH         4.0   charge
+    Na         100
+    Cl         100
+    Ca         1e-6
+    Mg         1e-6
+    Si         1e-6
+    Al         1e-6
+    C(4)       1.0   CO2(g)  1.78
+EQUILIBRIUM_PHASES 1
+    Calcite     0  0
+    Magnesite   0  0
+    Chalcedony  0  0
+    Kaolinite   0  0
+KINETICS 1
+    Forsterite
+        -m      0.5
+        -m0     0.5
+        -parms  5.0
+    Diopside
+        -m      0.5
+        -m0     0.5
+        -parms  5.0
+    Anorthite
+        -m      1.0
+        -m0     1.0
+        -parms  5.0
+END

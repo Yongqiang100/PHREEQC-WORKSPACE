@@ -1,0 +1,10 @@
+# phreeqc_newton_solver overlay 1.0.0: supported upstream files.
+#
+# SHA-256 of each upstream file the overlay edits. The three files are
+# byte-identical in both supported releases:
+#   phreeqc3   v3.9.0 (commit b0b3be767158ccc3322d2c816625cf470045e67e)
+#   PhreeqcRM  v3.9.0 (commit 90b31ed8f2080dd957af6cd75edb9ce099d0914b)
+# Lines: <sha256>  <file name>. cmake/edits.cmake and cmake/detach.cmake parse them.
+761c4bfb4f75be786aa576bec7c1e2129a9b4768fa507edaf0f8f2df2eed462d  Phreeqc.h
+0fb852f2d9fa171cf7324ba6601742a1b5380a989813cd7ffcbcace7068f607e  model.cpp
+e1c03f8d19db76017b8acf9589cd65376fef95cfa7a584a71c9e829fc7488989  Phreeqc.cpp

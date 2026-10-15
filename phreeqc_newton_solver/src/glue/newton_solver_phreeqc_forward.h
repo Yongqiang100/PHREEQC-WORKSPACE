@@ -1,0 +1,4 @@
+#ifndef NEWTON_SOLVER_PHREEQC_FORWARD_H
+#define NEWTON_SOLVER_PHREEQC_FORWARD_H
+struct NewtonLinearSolverState;
+#endif

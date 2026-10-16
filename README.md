@@ -8,11 +8,11 @@ Work on the Newton linear solver of **PHREEQC** and **PhreeqcRM** (USGS), 2026:
 
 | Path | Contents |
 |---|---|
-| `phreeqc_newton_solver/` | **The overlay (release 1.0.0).** Copy it into an official phreeqc3 v3.9.0 or PhreeqcRM v3.9.0 tree, and configure with one extra CMake flag. See its `README.md` |
+| `phreeqc_newton_solver/` | **The overlay (release 1.1.0).** Copy it into an official phreeqc3 v3.9.0 or PhreeqcRM v3.9.0 tree, and configure with one extra CMake flag. See its `README.md` |
 | `benchmarks/phreeqcrm_benchmark/` | Chemistry-only PhreeqcRM benchmark driver (CO₂–basalt, 1,000 cells) and series scripts |
 | `docs/` | Project summary, designs, reviewer decisions, task reports, measurements |
 
-The release tarball (`phreeqc_newton_solver-1.0.0.tar.gz`, with its SHA-256) is attached to the GitHub release **v1.0.0**.
+The release tarball (`phreeqc_newton_solver-1.1.0.tar.gz`, with its SHA-256) is attached to the GitHub release **v1.1.0**.
 
 ## Key Results (Details in `docs/PROJECT_SUMMARY.md`)
 
@@ -31,3 +31,7 @@ The full development history is on two branches:
 ## Licences
 
 The overlay and the material in this repository: see `phreeqc_newton_solver/LICENSE`. PHREEQC and PhreeqcRM are USGS software, distributed under their own terms, which are kept in their trees on the `dev/*` branches.
+
+## Related: Flat PhreeqcRM
+
+`https://github.com/Yongqiang100/phreeqcrm-flat` is official PhreeqcRM v3.9.0 rearranged so that each layer is one directory (`src/phreeqc`, `src/iphreeqc`, `src/phreeqcrm`, …). It is verified identical to upstream in compiled code, installed package and test results, and can be updated with each USGS release. The overlay (1.1.0 and later) works on it too.

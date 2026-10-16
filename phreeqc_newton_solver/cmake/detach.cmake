@@ -10,13 +10,15 @@ endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/edits.cmake")
 
-# Locate the engine directory of the tree.
-if(EXISTS "${TREE}/src/IPhreeqcPhast/IPhreeqc/phreeqcpp/model.cpp")
+# Locate the engine directory of the tree. The flat PhreeqcRM layout is checked first: it is the most specific.
+if(EXISTS "${TREE}/src/phreeqc/model.cpp" AND EXISTS "${TREE}/src/phreeqcrm/PhreeqcRM.h")
+  set(engine_dir "${TREE}/src/phreeqc") # flat PhreeqcRM tree (phreeqcrm-flat)
+elseif(EXISTS "${TREE}/src/IPhreeqcPhast/IPhreeqc/phreeqcpp/model.cpp")
   set(engine_dir "${TREE}/src/IPhreeqcPhast/IPhreeqc/phreeqcpp")
 elseif(EXISTS "${TREE}/src/model.cpp")
   set(engine_dir "${TREE}/src")
 else()
-  message(FATAL_ERROR "phreeqc_newton_solver detach: ${TREE} is neither a phreeqc3 tree (src/model.cpp) nor a PhreeqcRM tree (src/IPhreeqcPhast/IPhreeqc/phreeqcpp/model.cpp)")
+  message(FATAL_ERROR "phreeqc_newton_solver detach: ${TREE} is none of the supported trees: a phreeqc3 tree (src/model.cpp), a PhreeqcRM tree (src/IPhreeqcPhast/IPhreeqc/phreeqcpp/model.cpp), or a flat PhreeqcRM tree (src/phreeqc/model.cpp with src/phreeqcrm/PhreeqcRM.h)")
 endif()
 
 newton_solver_edited_files(files)

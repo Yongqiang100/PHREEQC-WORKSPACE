@@ -14,6 +14,8 @@ CMake flag**. You never edit PHREEQC's files by hand.
 - An official **phreeqc3 v3.9.0** or **PhreeqcRM v3.9.0** source tree
   (`https://github.com/usgs-coupled/phreeqc3`, `https://github.com/usgs-coupled/phreeqcrm`).
   Other versions are refused at configure time (see [Supported versions](#supported-versions)).
+- Or a **flat PhreeqcRM tree** (phreeqcrm-flat, branch `main`): the same PhreeqcRM v3.9.0 files
+  with the engine in `src/phreeqc/` and the shared helpers in `src/phreeqc_common/`.
 - CMake ≥ 3.19, a C++11 compiler, LAPACK (for example OpenBLAS), and POSIX threads.
 - For PhreeqcRM with MPI: the MPI that PhreeqcRM itself is built with. The overlay makes no MPI calls.
 
@@ -23,7 +25,7 @@ Work in an empty directory that contains the release tarball. Each source tree g
 build directory.
 
 ```bash
-tar -xzf phreeqc_newton_solver-1.0.0.tar.gz          # creates ./phreeqc_newton_solver/
+tar -xzf phreeqc_newton_solver-1.1.0.tar.gz          # creates ./phreeqc_newton_solver/
 
 # PhreeqcRM
 git clone --branch v3.9.0 https://github.com/usgs-coupled/phreeqcrm.git
@@ -41,6 +43,8 @@ cmake -S phreeqc3 -B build-phreeqc3 -DCMAKE_BUILD_TYPE=Release \
 cmake --build build-phreeqc3 -j 8
 ctest --test-dir build-phreeqc3 -R newton_solver
 ```
+
+For a flat PhreeqcRM tree (phreeqcrm-flat), use the PhreeqcRM commands with that tree's directory name.
 
 The flag is all you add. Your usual options, such as `-DPHREEQCRM_BUILD_MPI=ON`, work as before.
 To make `lapack` the default backend at build time, add `-DNEWTON_SOLVER_DEFAULT_BACKEND=lapack`.
